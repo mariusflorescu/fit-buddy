@@ -1,7 +1,11 @@
 import { NextPage } from 'next'
 
 const Overview: NextPage = () => {
-  return <div>Overview page</div>
+  return (
+    <div>
+      <div>Overview page</div>
+    </div>
+  )
 }
 
 export default Overview
