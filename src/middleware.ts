@@ -9,5 +9,5 @@ export default withAuth({
 })
 
 export const config = {
-  matcher: ['/app/:path*']
+  matcher: ['/', '/app/:path*', '/auth/signout']
 }
