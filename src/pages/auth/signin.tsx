@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext, NextPage } from 'next'
-import { getProviders, signIn } from 'next-auth/react'
+import { getProviders, signIn, useSession } from 'next-auth/react'
 
 type Provider = {
   name: string
@@ -11,13 +11,20 @@ type Props = {
 }
 
 const SignIn: NextPage<Props> = ({ providers }) => {
+  const session = useSession()
   return (
     <div>
       <h1>Sign In page</h1>
       {Object.values(providers).map((provider) => {
         return (
           <div key={provider.name}>
-            <button onClick={() => signIn(provider.id)}>
+            <button
+              onClick={() =>
+                signIn(provider.id, {
+                  callbackUrl: `${window.location.origin}/app/overview`
+                })
+              }
+            >
               Sign in with {provider.name}
             </button>
           </div>
