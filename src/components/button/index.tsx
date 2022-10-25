@@ -2,18 +2,23 @@ import React from 'react'
 import type { ButtonVariants } from './styles'
 import { buttonStyles } from './styles'
 
-type ButtonProps = ButtonVariants &
+type ButtonProps = {
+    icon?: React.ReactNode
+} & ButtonVariants &
   React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   >
 
-const Button = ({ className, variant, size, ...props }: ButtonProps) => {
+const Button = ({ children, icon, className, variant, size, ...props }: ButtonProps) => {
   return (
     <button
       className={buttonStyles({ variant, size, class: className })}
       {...props}
-    />
+    >
+        {icon}
+        <span>{children}</span>
+    </button>
   )
 }
 
