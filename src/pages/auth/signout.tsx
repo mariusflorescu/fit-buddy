@@ -12,7 +12,7 @@ const SignOut: NextPage = () => {
   return (
     <>
       <Head>
-        <title>FitBuddy - Sign In</title>
+        <title>FitBuddy - Sign Out</title>
       </Head>
       <div className="flex h-full w-full flex-col items-center justify-center px-8">
         <div className="flex w-full flex-col items-center space-y-8 rounded-lg bg-white p-8 shadow">
@@ -22,7 +22,9 @@ const SignOut: NextPage = () => {
             We hope to see you again soon!
           </p>
           <span className="h-[1px] w-full bg-gray-100" />
-          <button className="w-full bg-gray-900 text-gray-50">Go back to login</button>
+          <button className="w-full bg-gray-900 text-gray-50">
+            Go back to login
+          </button>
         </div>
       </div>
     </>
