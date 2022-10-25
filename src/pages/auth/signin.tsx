@@ -1,3 +1,4 @@
+import Button from '@components/button'
 import { GetServerSidePropsContext, NextPage } from 'next'
 import { getProviders, signIn } from 'next-auth/react'
 import Head from 'next/head'
@@ -25,8 +26,7 @@ const SignIn: NextPage<Props> = ({ providers }) => {
           {Object.values(providers).map((provider) => {
             return (
               <div key={provider.name}>
-                <button
-                  className="bg-gray-900 font-medium text-white"
+                <Button variant='primary'
                   onClick={() =>
                     signIn(provider.id, {
                       callbackUrl: `${window.location.origin}/app/overview`
@@ -34,7 +34,7 @@ const SignIn: NextPage<Props> = ({ providers }) => {
                   }
                 >
                   Sign in with {provider.name}
-                </button>
+                </Button>
               </div>
             )
           })}
