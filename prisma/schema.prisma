@@ -66,6 +66,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
   stripe_customer String?   @unique
+  is_subscribed   Boolean   @default(false)
 
   @@map("users")
 }
