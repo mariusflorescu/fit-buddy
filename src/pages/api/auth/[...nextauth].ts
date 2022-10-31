@@ -6,11 +6,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '@server/db/client'
 import { env } from '@env/server.mjs'
 
-import Stripe from 'stripe'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2022-08-01'
-})
+import stripe from '@utils/stripe'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
