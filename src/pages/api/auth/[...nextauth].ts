@@ -52,6 +52,7 @@ export const authOptions: NextAuthOptions = {
               stripe_customer: customer.id
             }
           })
+          token.stripe_customer = customer.id
         }
       }
 
@@ -60,6 +61,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.id = token.id
       session.role = token.role
+      session.stripe_customer = token.stripe_customer
 
       return session
     }
