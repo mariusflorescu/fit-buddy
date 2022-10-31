@@ -9,6 +9,7 @@ declare module 'next-auth' {
    */
   interface User extends DefaultUser {
     role: Role
+    stripe_customer: string
   }
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
@@ -16,10 +17,8 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     id: string
     role: Role
-    user?: {
-      id: string
-      role: Role
-    } & DefaultSession['user']
+    stripe_customer: string
+    user?: User
   }
 }
 
@@ -28,5 +27,6 @@ declare module 'next-auth/jwt' {
   interface JWT {
     id: string
     role: Role
+    stripe_customer: string
   }
 }

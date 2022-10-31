@@ -9,6 +9,17 @@ const SignOut: NextPage = () => {
     signOut({ redirect: false })
   }
 
+  if (status === 'loading') {
+    return (
+      <div className="flex h-full w-full flex-col items-center justify-center px-8">
+        <div className="flex w-full flex-col items-center space-y-8 rounded-lg bg-white p-8 shadow">
+          <h1 className="text-lg font-bold">FitBuddy</h1>
+          <h2 className="text-2xl font-semibold">Loading...</h2>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       <Head>

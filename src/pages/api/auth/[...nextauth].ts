@@ -6,6 +6,8 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '@server/db/client'
 import { env } from '@env/server.mjs'
 
+import stripe from '@utils/stripe'
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -37,6 +39,21 @@ export const authOptions: NextAuthOptions = {
 
       if (isNewUser) {
         token.role = 'USER'
+        if (user?.email) {
+          const customer = await stripe.customers.create({
+            email: user.email,
+            name: user.name !== null ? user.name : undefined
+          })
+          await prisma.user.update({
+            where: {
+              email: user.email
+            },
+            data: {
+              stripe_customer: customer.id
+            }
+          })
+          token.stripe_customer = customer.id
+        }
       }
 
       return token
@@ -44,6 +61,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.id = token.id
       session.role = token.role
+      session.stripe_customer = token.stripe_customer
 
       return session
     }
