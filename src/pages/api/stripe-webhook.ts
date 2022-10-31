@@ -31,9 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           stripe_customer: event.data.object.customer
         },
         data: {
-          is_subscribed: true,
-          //@ts-ignore
-          interval: event.data.object.items.data[0].plan.interval
+          is_subscribed: true
         }
       })
   }
