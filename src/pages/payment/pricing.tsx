@@ -1,18 +1,12 @@
-import { type NextPage } from 'next'
+import type { NextPage } from 'next'
 
 import stripe from '@utils/stripe'
 import Button from '@components/button'
 
 import axios from 'axios'
 import { loadStripe } from '@stripe/stripe-js'
-
-type Plan = {
-  id: string
-  name: string
-  price: number | null
-  interval: 'day' | 'month' | 'week' | 'year'
-  currency: string
-}
+import type { Plan } from '@ts/stripe'
+import PricingCard from '@components/pricing-card'
 
 type Props = {
   plans: Plan[]
@@ -32,9 +26,7 @@ const Pricing: NextPage<Props> = ({ plans }) => {
       <p>{JSON.stringify(plans, null, 2)}</p>
       <div>
         {plans.map((plan) => (
-          <Button key={plan.id} onClick={() => processSubscription(plan.id)}>
-            Subscript to plan {plan.name}
-          </Button>
+          <PricingCard key={plan.id} plan={plan} />
         ))}
       </div>
     </div>
