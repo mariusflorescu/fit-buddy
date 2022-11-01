@@ -34,6 +34,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           is_subscribed: true
         }
       })
+      return res.status(201).send(`Stripe Webhook - Subscription Created`)
+    case 'customer.subscription.deleted':
+      await prisma.user.update({
+        where: {
+          //@ts-ignore
+          stripe_customer: event.data.object.customer
+        },
+        data: {
+          is_subscribed: false
+        }
+      })
+      return res.status(200).send(`Stripe Webhook - Subscription Deleted`)
   }
 }
 
