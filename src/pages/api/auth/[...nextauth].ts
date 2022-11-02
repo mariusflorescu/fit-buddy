@@ -55,10 +55,10 @@ export const authOptions: NextAuthOptions = {
           token.stripe_customer = customer.id
         }
       }
-
       return token
     },
-    async session({ session, token }) {
+    async session({ session, token, user }) {
+      console.log(2222, user)
       session.id = token.id
       session.role = token.role
       session.stripe_customer = token.stripe_customer

@@ -10,6 +10,7 @@ declare module 'next-auth' {
   interface User extends DefaultUser {
     role: Role
     stripe_customer: string
+    subscription_id?: string
   }
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
