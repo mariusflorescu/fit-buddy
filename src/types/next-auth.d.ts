@@ -16,9 +16,6 @@ declare module 'next-auth' {
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session extends DefaultSession {
-    id: string
-    role: Role
-    stripe_customer: string
     user?: User
   }
 }

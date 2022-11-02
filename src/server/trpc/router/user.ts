@@ -7,7 +7,7 @@ export const userRouter = router({
   init: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.prisma.user.findUnique({
       where: {
-        id: ctx.session.id
+        id: ctx.session.user.id
       }
     })
 

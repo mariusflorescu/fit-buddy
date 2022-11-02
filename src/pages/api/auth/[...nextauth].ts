@@ -57,12 +57,12 @@ export const authOptions: NextAuthOptions = {
       }
       return token
     },
-    async session({ session, token, user }) {
-      console.log(2222, user)
-      session.id = token.id
-      session.role = token.role
-      session.stripe_customer = token.stripe_customer
-
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id
+        session.user.role = token.role
+        session.user.stripe_customer = token.stripe_customer
+      }
       return session
     }
   }

@@ -6,7 +6,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { priceId } = req.query
   const session = await getServerAuthSession({ req, res })
 
-  if (!session) {
+  if (!session?.user) {
     return res.send({
       error: 'You must be signed in to view the protected content on this page.'
     })
@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   ]
 
   const stripeSession = await stripe.checkout.sessions.create({
-    customer: session.stripe_customer,
+    customer: session.user.stripe_customer,
     mode: 'subscription',
     payment_method_types: ['card'],
     line_items: lineItems,
