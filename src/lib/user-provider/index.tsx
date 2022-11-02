@@ -8,6 +8,7 @@ import { trpc } from '@utils/trpc'
 import type { inferProcedureOutput } from '@trpc/server'
 import type { AppRouter } from '@server/trpc/router/_app'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 type Context = {
   user:
@@ -20,20 +21,13 @@ const UserContext = createContext<Context>({
 })
 
 const UserProvider = ({ children }: PropsWithChildren) => {
-  const router = useRouter()
-  const { data, isLoading } = trpc.user.init.useQuery()
+  const session = useSession()
+  const { data, isLoading } = trpc.user.init.useQuery(undefined, {
+    retry: 0,
+    enabled: session.status === 'authenticated'
+  })
 
-  // useEffect(() => {
-  //   if (isLoading || !data) return
-
-  //   if (data?.is_subscribed) {
-  //     router.push('/app/overview')
-  //   } else {
-  //     router.push('/payment/pricing')
-  //   }
-  // }, [isLoading])
-
-  if (isLoading) {
+  if (session.status === 'authenticated' && isLoading) {
     return <p>Loading...</p>
   }
 
