@@ -23,15 +23,15 @@ const UserProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter()
   const { data, isLoading } = trpc.user.init.useQuery()
 
-  useEffect(() => {
-    if (isLoading) return
+  // useEffect(() => {
+  //   if (isLoading || !data) return
 
-    if (data?.is_subscribed) {
-      router.push('/app/overview')
-    } else {
-      router.push('/payment/pricing')
-    }
-  }, [isLoading])
+  //   if (data?.is_subscribed) {
+  //     router.push('/app/overview')
+  //   } else {
+  //     router.push('/payment/pricing')
+  //   }
+  // }, [isLoading])
 
   if (isLoading) {
     return <p>Loading...</p>

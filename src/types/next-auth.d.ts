@@ -10,6 +10,7 @@ declare module 'next-auth' {
   interface User extends DefaultUser {
     role: Role
     stripe_customer: string
+    is_subscribed: boolean
     subscription_id?: string
   }
   /**
@@ -25,6 +26,7 @@ declare module 'next-auth/jwt' {
   interface JWT {
     id: string
     role: Role
+    is_subscribed: boolean
     stripe_customer: string
   }
 }

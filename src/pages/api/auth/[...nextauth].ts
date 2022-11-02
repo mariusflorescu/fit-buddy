@@ -29,16 +29,16 @@ export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
     async jwt({ token, user, isNewUser }) {
-      if (user?.id) {
+      if (user) {
         token.id = user?.id
-      }
-
-      if (user?.role) {
         token.role = user.role
+        token.is_subscribed = user.is_subscribed
+        token.stripe_customer = user.stripe_customer
       }
 
       if (isNewUser) {
         token.role = 'USER'
+        token.is_subscribed = false
         if (user?.email) {
           const customer = await stripe.customers.create({
             email: user.email,
@@ -57,10 +57,12 @@ export const authOptions: NextAuthOptions = {
       }
       return token
     },
+
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id
         session.user.role = token.role
+        session.user.is_subscribed = token.is_subscribed
         session.user.stripe_customer = token.stripe_customer
       }
       return session
