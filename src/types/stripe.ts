@@ -4,4 +4,5 @@ export type Plan = {
     price: number | null
     interval: 'day' | 'month' | 'week' | 'year'
     currency: string
+    description: string | null
   }

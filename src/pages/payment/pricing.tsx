@@ -13,18 +13,11 @@ type Props = {
 }
 
 const Pricing: NextPage<Props> = ({ plans }) => {
-  const processSubscription = async (planId: string) => {
-    const { data } = await axios.get(`/api/payment/${planId}`)
-    const stripe = await loadStripe(
-      process.env.NEXT_PUBLIC_STRIPE_KEY as string
-    )
-    await stripe?.redirectToCheckout({ sessionId: data.id })
-  }
+  
 
   return (
     <div>
-      <p>{JSON.stringify(plans, null, 2)}</p>
-      <div>
+      <div className="flex flex-col space-y-4 p-8">
         {plans.map((plan) => (
           <PricingCard key={plan.id} plan={plan} />
         ))}
@@ -45,7 +38,8 @@ export const getStaticProps = async () => {
         name: product.name,
         price: price.unit_amount,
         interval: price.recurring?.interval,
-        currency: price.currency
+        currency: price.currency,
+        description: product.description
       }
     })
   )
