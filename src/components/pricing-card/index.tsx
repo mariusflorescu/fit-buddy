@@ -21,15 +21,15 @@ const PricingCard: FC<Props> = ({ plan }) => {
   }
 
   return (
-    <div className="min-w-48 flex flex-col divide-y rounded-lg border border-2">
-      <div className="flex w-full items-center justify-center bg-gradient-to-tr from-gray-200 to-gray-50 py-4 text-xl font-bold">
+    <div className="min-w-48 flex flex-col divide-y rounded-lg border-2">
+      <div className="rounded-lg flex w-full items-center justify-center bg-gradient-to-tr from-gray-100 to-gray-50 py-4 text-xl font-bold">
         {name}
       </div>
-      <div className="flex w-full flex-col py-8 text-center">
+      <div className="flex w-full flex-col py-8 px-4 text-center">
         <span className="text-2xl font-semibold">
           {price} {currency.toUpperCase()} / {interval}
         </span>
-        <p>{description}</p>
+        <p className="text-gray-500">{description}</p>
       </div>
       <div className="flex w-full items-center justify-center py-4">
         <Button variant="primary" onClick={() => processSubscription(id)}>
