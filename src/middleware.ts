@@ -6,12 +6,11 @@ export default withAuth(function middleware(req) {
   const url = req.nextUrl.clone()
 
   if (!token) {
-    console.log('should be here')
     url.pathname = '/auth/signin'
     return NextResponse.rewrite(url)
   }
 
-  if (req.url.includes('/app') && !token?.is_subscribed) {
+  if ((req.url.includes('/app') || url.pathname === '/') && !token?.is_subscribed) {
     url.pathname = '/payment/pricing'
     return NextResponse.rewrite(url)
   }
