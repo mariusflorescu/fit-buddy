@@ -10,7 +10,10 @@ export default withAuth(function middleware(req) {
     return NextResponse.rewrite(url)
   }
 
-  if ((req.url.includes('/app') || url.pathname === '/') && !token?.is_subscribed) {
+  if (
+    (req.url.includes('/app') || url.pathname === '/') &&
+    !token?.is_subscribed
+  ) {
     url.pathname = '/payment/pricing'
     return NextResponse.rewrite(url)
   }
@@ -19,5 +22,11 @@ export default withAuth(function middleware(req) {
 })
 
 export const config = {
-  matcher: ['/', '/app/:path*', '/auth/signout']
+  matcher: [
+    '/',
+    '/app/:path*',
+    '/auth/signout',
+    '/payment/success',
+    '/payment/failure'
+  ]
 }

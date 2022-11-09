@@ -13,8 +13,6 @@ type Props = {
 }
 
 const Pricing: NextPage<Props> = ({ plans }) => {
-  
-
   return (
     <div>
       <div className="flex flex-col space-y-4 p-8">
