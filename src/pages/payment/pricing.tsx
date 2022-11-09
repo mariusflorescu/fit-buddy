@@ -1,10 +1,4 @@
-import type { NextPage } from 'next'
-
 import stripe from '@utils/stripe'
-import Button from '@components/button'
-
-import axios from 'axios'
-import { loadStripe } from '@stripe/stripe-js'
 import type { Plan } from '@ts/stripe'
 import PricingCard from '@components/pricing-card'
 import { NextPageWithLayout } from '@pages/_app'
@@ -34,7 +28,7 @@ const Pricing: NextPageWithLayout<Props> = ({ plans }) => {
 }
 
 Pricing.getLayout = function getLayout(page: ReactElement) {
-  return <PaymentLayout>{page}</PaymentLayout>
+  return <PaymentLayout title="Pricing">{page}</PaymentLayout>
 }
 
 export const getStaticProps = async () => {
