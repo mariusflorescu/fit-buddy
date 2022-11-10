@@ -18,6 +18,11 @@ export default withAuth(function middleware(req) {
     return NextResponse.rewrite(url)
   }
 
+  if (url.pathname === '/') {
+    url.pathname = '/app/overview'
+    return NextResponse.rewrite(url)
+  }
+
   return NextResponse.next()
 })
 
