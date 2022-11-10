@@ -10,7 +10,8 @@
       "@ts/*": ["./types/*"],
       "@server/*": ["./server/*"],
       "@pages/*": ["./pages/*"],
-      "@layout/*": ["./layout/*"]
+      "@layout/*": ["./layout/*"],
+      "@icons/*": ["./icons/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

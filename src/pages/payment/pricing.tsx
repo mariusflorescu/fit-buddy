@@ -1,29 +1,34 @@
-import type { NextPage } from 'next'
-
 import stripe from '@utils/stripe'
-import Button from '@components/button'
-
-import axios from 'axios'
-import { loadStripe } from '@stripe/stripe-js'
 import type { Plan } from '@ts/stripe'
 import PricingCard from '@components/pricing-card'
+import { NextPageWithLayout } from '@pages/_app'
+import PaymentLayout from '@layout/payment'
+import { ReactElement } from 'react'
 
 type Props = {
   plans: Plan[]
 }
 
-const Pricing: NextPage<Props> = ({ plans }) => {
-  
-
+const Pricing: NextPageWithLayout<Props> = ({ plans }) => {
   return (
-    <div>
-      <div className="flex flex-col space-y-4 p-8">
+    <>
+      <h2 className="text-2xl font-semibold">Pricing</h2>
+      <div className="px-4 text-gray-500">
+        <p>Below you can see all our pricing plans.</p>
+        <p>Can&apos;t wait to have you as a member!</p>
+      </div>
+      <span className="h-[1px] w-full bg-gray-100" />
+      <div className="space-y-4">
         {plans.map((plan) => (
           <PricingCard key={plan.id} plan={plan} />
         ))}
       </div>
-    </div>
+    </>
   )
+}
+
+Pricing.getLayout = function getLayout(page: ReactElement) {
+  return <PaymentLayout title="Pricing">{page}</PaymentLayout>
 }
 
 export const getStaticProps = async () => {
