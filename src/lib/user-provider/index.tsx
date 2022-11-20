@@ -38,6 +38,6 @@ const UserProvider = ({ children }: PropsWithChildren) => {
   )
 }
 
-export const UseUser = () => useContext(UserContext)
+export const useUser = () => useContext(UserContext)
 
 export default UserProvider

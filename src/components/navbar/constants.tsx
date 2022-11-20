@@ -14,9 +14,9 @@ const NAV_ITEMS = [
     icon: <ScheduleIcon />
   },
   {
-      href: 'app/profile',
-      name: 'Profile',
-      icon: <ProfileIcon/>
+    href: '/app/profile',
+    name: 'Profile',
+    icon: <ProfileIcon />
   }
 ]
 
