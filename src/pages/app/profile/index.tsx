@@ -10,7 +10,7 @@ const Profile: NextPageWithLayout = () => {
 }
 
 Profile.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout title="Overview">{page}</MainLayout>
+  return <MainLayout title="Profile">{page}</MainLayout>
 }
 
 export default Profile

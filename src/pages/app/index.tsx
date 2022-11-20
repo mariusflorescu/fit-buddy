@@ -1,8 +1,9 @@
-import { NextPage } from 'next'
+import MainLayout from '@layout/main'
+import { NextPageWithLayout } from '@pages/_app'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { ReactElement, useEffect } from 'react'
 
-const Index: NextPage = () => {
+const Index: NextPageWithLayout = () => {
   const router = useRouter()
 
   useEffect(() => {
@@ -10,6 +11,10 @@ const Index: NextPage = () => {
   }, [])
 
   return null
+}
+
+Index.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>
 }
 
 export default Index
