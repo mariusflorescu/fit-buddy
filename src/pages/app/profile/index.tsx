@@ -1,3 +1,4 @@
+import Button from '@components/button'
 import ExclamationCircleIcon from '@icons/exclamationCircle'
 import WarningIcon from '@icons/warning'
 import MainLayout from '@layout/main'
@@ -7,9 +8,12 @@ import { ReactElement } from 'react'
 
 const Profile: NextPageWithLayout = () => {
   const { user } = useUser()
-  console.log(user)
 
-  const days2 = 5
+  const daysTilExpiring = (
+    user?.days_until_subscription_expires === null
+      ? 9999
+      : user?.days_until_subscription_expires
+  ) as number
 
   return (
     <div>
@@ -26,20 +30,23 @@ const Profile: NextPageWithLayout = () => {
       <div className="py-8">
         <h2 className="font-semibold text-gray-700">Your membership</h2>
       </div>
-      {days2 <= 5 && days2 > 3 && (
+      {daysTilExpiring <= 5 && daysTilExpiring > 3 && (
         <div className="flex space-x-2 text-amber-600">
-          <ExclamationCircleIcon/>
-          <p>You have {days2} days left of your membership!</p>
+          <ExclamationCircleIcon />
+          <p>You have {daysTilExpiring} days left of your membership!</p>
         </div>
       )}
-      {days2 <= 3 && (
+      {daysTilExpiring <= 3 && (
         <div className="flex space-x-2">
           <WarningIcon />
           <p className="text-red-600">
-            You have {days2} days left of your membership!
+            You have {daysTilExpiring} days left of your membership!
           </p>
         </div>
       )}
+      <div className="flex">
+        <Button className="w-full">Manage Subscription</Button>
+      </div>
     </div>
   )
 }
