@@ -4,10 +4,18 @@ import WarningIcon from '@icons/warning'
 import MainLayout from '@layout/main'
 import { useUser } from '@lib/user-provider'
 import { NextPageWithLayout } from '@pages/_app'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 
 const Profile: NextPageWithLayout = () => {
+  const router = useRouter()
   const { user } = useUser()
+
+  const loadPortal = async () => {
+    const { data } = await axios.get('/api/portal')
+    router.push(data.url)
+  }
 
   const daysTilExpiring = (
     user?.days_until_subscription_expires === null
@@ -45,7 +53,7 @@ const Profile: NextPageWithLayout = () => {
         </div>
       )}
       <div className="flex">
-        <Button className="w-full">Manage Subscription</Button>
+        <Button className="w-full" onClick={loadPortal}>Manage Subscription</Button>
       </div>
     </div>
   )
