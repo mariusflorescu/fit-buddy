@@ -17,7 +17,7 @@ const Button = ({ children, icon, className, variant, size, ...props }: ButtonPr
       {...props}
     >
         {icon}
-        <span>{children}</span>
+        <span className="w-full">{children}</span>
     </button>
   )
 }
