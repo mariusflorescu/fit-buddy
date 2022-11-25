@@ -65,6 +65,7 @@ model User {
   role            Role      @default(USER)
   accounts        Account[]
   sessions        Session[]
+  entries         Entry[]
   stripe_customer String?   @unique
   is_subscribed   Boolean   @default(false)
   subscription_id String?   @unique
@@ -79,4 +80,23 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+//
+//  GYM
+//
+
+enum Entry_Types {
+  GYM
+  CLASS
+}
+
+model Entry {
+  id        String      @id @default(cuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime    @default(now())
+  entryType Entry_Types @default(GYM)
+
+  @@map("entries")
 }
