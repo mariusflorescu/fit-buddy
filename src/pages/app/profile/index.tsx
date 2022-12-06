@@ -52,8 +52,24 @@ const Profile: NextPageWithLayout = () => {
           </p>
         </div>
       )}
+      {daysTilExpiring <= 5 && daysTilExpiring > 3 && (
+        <div className="flex space-x-2 text-amber-600">
+          <ExclamationCircleIcon />
+          <p>You have {daysTilExpiring} days left of your membership!</p>
+        </div>
+      )}
+      {daysTilExpiring <= 3 && (
+        <div className="flex space-x-2">
+          <WarningIcon />
+          <p className="text-red-600">
+            You have {daysTilExpiring} days left of your membership!
+          </p>
+        </div>
+      )}
       <div className="flex">
-        <Button className="w-full" onClick={loadPortal}>Manage Subscription</Button>
+        <Button className="w-full" onClick={loadPortal}>
+          Manage Subscription
+        </Button>
       </div>
     </div>
   )
