@@ -28,7 +28,7 @@ const UserProvider = ({ children }: PropsWithChildren) => {
   })
 
   if (session.status === 'authenticated' && isLoading) {
-    return <p>Loading.... </p>
+    return <p>Loading... </p>
   }
 
   return (
