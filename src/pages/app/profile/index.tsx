@@ -6,11 +6,14 @@ import { useUser } from '@lib/user-provider'
 import { NextPageWithLayout } from '@pages/_app'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
+import QRCode from 'react-qr-code'
 
 const Profile: NextPageWithLayout = () => {
   const router = useRouter()
   const { user } = useUser()
+
+  const [entryURL, setEntryURL] = useState('')
 
   const loadPortal = async () => {
     const { data } = await axios.get('/api/portal')
@@ -23,14 +26,22 @@ const Profile: NextPageWithLayout = () => {
       : user?.days_until_subscription_expires
   ) as number
 
+  useEffect(() => {
+    if (window) {
+      console.log(window.location)
+      setEntryURL(
+        `${window.location.protocol}//${window.location.host}/api/admin/create-entry/${user?.id}`
+      )
+    }
+  }, [])
+
   return (
     <div>
       <div className="flex items-center justify-between space-x-4">
         <div className="h-24 w-24 rounded-full bg-gray-100 shadow-md">
           <img
             className="h-full w-full rounded-full bg-cover"
-            src={user?.image || undefined}
-            alt="This user does not have a profile picture."
+            src={user?.image || ''}
           />
         </div>
         <h2 className="text-2xl font-semibold">{user?.name}</h2>
@@ -66,6 +77,9 @@ const Profile: NextPageWithLayout = () => {
           </p>
         </div>
       )}
+      <div className="flex justify-center py-4">
+        <QRCode value={entryURL} />
+      </div>
       <div className="flex">
         <Button className="w-full" onClick={loadPortal}>
           Manage Subscription
