@@ -103,14 +103,14 @@ model Entry {
 }
 
 model Class {
-  id              String          @id @default(cuid())
-  trainerId       String
-  trainer         User            @relation(fields: [trainerId], references: [id], onDelete: Cascade)
-  name            String          @db.Text
-  description     String          @db.LongText
-  createdAt       DateTime        @default(now())
-  classSchedule   ClassSchedule[]
-  classScheduleId String
+  id            String          @id @default(cuid())
+  trainerId     String
+  trainer       User            @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+  name          String          @db.Text
+  description   String          @db.LongText
+  maxSlots      Int
+  createdAt     DateTime        @default(now())
+  classSchedule ClassSchedule[]
 
   @@map("classes")
 }

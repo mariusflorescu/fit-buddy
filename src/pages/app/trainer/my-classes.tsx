@@ -1,15 +1,22 @@
 import Button from '@components/button'
+import ArrowUpRight from '@icons/arrow-up-right'
 import PlusIcon from '@icons/plusIcon'
 import MainLayout from '@layout/main'
 import { NextPageWithLayout } from '@pages/_app'
+import { trpc } from '@utils/trpc'
 import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 
 const MyClasses: NextPageWithLayout = () => {
   const router = useRouter()
+  const { data, isLoading } = trpc.trainer.getMyClasses.useQuery()
+
+  const onEditClassClick = (classId: string) => {
+    router.push(`/app/trainer/classes/${classId}`)
+  }
 
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       <div className="flex justify-end">
         <Button
           variant="secondary"
@@ -18,6 +25,19 @@ const MyClasses: NextPageWithLayout = () => {
           <PlusIcon />
         </Button>
       </div>
+      {data?.classes.map((cls) => (
+        <div className="border-grey-200 flex flex-col gap-2 rounded-md border p-4">
+          <h4 className="font-semibold">{cls.name}</h4>
+          <p className="text-sm text-gray-600">{cls.description}</p>
+          <Button
+            icon={<ArrowUpRight />}
+            className="mt-6 w-full text-sm"
+            onClick={() => onEditClassClick(cls.id)}
+          >
+            <span>View more</span>
+          </Button>
+        </div>
+      ))}
     </div>
   )
 }

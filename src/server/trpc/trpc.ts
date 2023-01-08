@@ -33,9 +33,7 @@ const isAuthed = t.middleware(({ ctx, next }) => {
 })
 
 const isAdmin = t.middleware(({ ctx, next }) => {
-  if (
-    ctx.session?.user?.role !== 'ADMIN'
-  ) {
+  if (ctx.session?.user?.role !== 'ADMIN') {
     throw new TRPCError({ code: 'UNAUTHORIZED' })
   }
 
@@ -46,8 +44,21 @@ const isAdmin = t.middleware(({ ctx, next }) => {
   })
 })
 
+const isTrainer = t.middleware(({ ctx, next }) => {
+  if (ctx.session?.user?.role === 'USER') {
+    throw new TRPCError({ code: 'UNAUTHORIZED' })
+  }
+
+  return next({
+    ctx: {
+      session: { ...ctx.session, user: ctx.session?.user }
+    }
+  })
+})
+
 /**
  * Protected procedure
  **/
 export const protectedProcedure = t.procedure.use(isAuthed)
 export const adminProcedure = t.procedure.use(isAdmin)
+export const trainerProcedure = t.procedure.use(isTrainer)
