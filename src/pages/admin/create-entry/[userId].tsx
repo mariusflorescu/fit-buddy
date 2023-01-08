@@ -49,7 +49,7 @@ const CreateEntry: NextPageWithLayout = () => {
 }
 
 CreateEntry.getLayout = function getLayout(page: ReactElement) {
-  return <AuthLayout title="Sign In">{page}</AuthLayout>
+  return <AuthLayout title="Create Gym Entry">{page}</AuthLayout>
 }
 
 export default CreateEntry

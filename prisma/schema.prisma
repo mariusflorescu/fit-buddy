@@ -66,6 +66,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
   entries         Entry[]
+  classes         Class[]
   stripe_customer String?   @unique
   is_subscribed   Boolean   @default(false)
   subscription_id String?   @unique
@@ -99,4 +100,45 @@ model Entry {
   entryType Entry_Types @default(GYM)
 
   @@map("entries")
+}
+
+model Class {
+  id              String          @id @default(cuid())
+  trainerId       String
+  trainer         User            @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+  name            String          @db.Text
+  description     String          @db.LongText
+  createdAt       DateTime        @default(now())
+  classSchedule   ClassSchedule[]
+  classScheduleId String
+
+  @@map("classes")
+}
+
+enum Schedule_Types {
+  EVERY
+  ONCE
+}
+
+enum Days {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model ClassSchedule {
+  id             String          @id @default(cuid())
+  classId        String
+  class          Class           @relation(fields: [classId], references: [id], onDelete: Cascade)
+  type           Schedule_Types? @default(EVERY)
+  once_day       Days?
+  once_time      DateTime?       @db.Time()
+  recurring_day  Days?
+  recurring_time DateTime?       @db.Time()
+
+  @@map("class_schedule")
 }

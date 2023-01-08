@@ -23,7 +23,6 @@ export const userRouter = router({
         )
       }
     }
-
     return {
       ...user,
       days_until_subscription_expires

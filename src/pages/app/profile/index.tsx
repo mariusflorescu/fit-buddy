@@ -28,7 +28,6 @@ const Profile: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (window) {
-      console.log(window.location)
       setEntryURL(
         `${window.location.protocol}//${window.location.host}/api/admin/create-entry/${user?.id}`
       )
