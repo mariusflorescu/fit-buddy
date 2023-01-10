@@ -131,14 +131,12 @@ enum Days {
 }
 
 model ClassSchedule {
-  id             String          @id @default(cuid())
-  classId        String
-  class          Class           @relation(fields: [classId], references: [id], onDelete: Cascade)
-  type           Schedule_Types? @default(EVERY)
-  once_day       Days?
-  once_time      DateTime?       @db.Time()
-  recurring_day  Days?
-  recurring_time DateTime?       @db.Time()
+  id      String          @id @default(cuid())
+  classId String
+  class   Class           @relation(fields: [classId], references: [id], onDelete: Cascade)
+  type    Schedule_Types? @default(EVERY)
+  day     Days?
+  time    DateTime?       @db.Time()
 
   @@map("class_schedule")
 }
